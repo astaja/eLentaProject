@@ -80,7 +80,6 @@ public class FirstTests {
     public void noEmailTest() { // 3nd test (without email)
         int rnd = (int) Math.round(Math.random() * 1000000);
         int rndEmail = (int) Math.round(Math.random() * 1000000);
-        String randomEmail = rndEmail + "@gmail.com";
 
         WebElement searchUserName = driver.findElement(By.id("UserName"));
         searchUserName.sendKeys("MyName" + rnd);
@@ -175,7 +174,7 @@ public class FirstTests {
         Assert.assertNotEquals(notifMsg, "Jūs sėkmingai prisiregistravote!");
     }
     @Test
-    public void nameMltplDigitsTest() { // 8th test ()
+    public void nameMltplDigitsTest() { // 8th test Name consists of multiple digits only
         int rndEmail = (int) Math.round(Math.random() * 1000000);
         String randomEmail = rndEmail + "@gmail.com";
 
@@ -194,7 +193,7 @@ public class FirstTests {
         Assert.assertNotEquals(notifMsg, "Jūs sėkmingai prisiregistravote!");
     }
     @Test
-    public void nameSpcCharTest() { // 9th test ()
+    public void nameSpcCharTest() { // 9th test Nmae consits of special signs+spaces
         int rndEmail = (int) Math.round(Math.random() * 1000000);
         String randomEmail = rndEmail + "@gmail.com";
 
@@ -213,7 +212,7 @@ public class FirstTests {
         Assert.assertNotEquals(notifMsg, "Jūs sėkmingai prisiregistravote!");
     }
     @Test
-    public void nameMixCharTest() { // 10th test ()
+    public void nameMixCharTest() { // 10th test Name consists of letters, digits, dots, spaces, dashes, underscores
         int rndEmail = (int) Math.round(Math.random() * 1000000);
         String randomEmail = rndEmail + "@gmail.com";
 
@@ -262,6 +261,26 @@ public class FirstTests {
         WebElement notifMsg2Element = driver.findElement(By.xpath("//*[@id=\"main-container\"]/form/fieldset/table/tbody/tr[4]/td[2]/span"));
         String notifMsg2 = notifMsg2Element.getText();
         Assert.assertEquals(notifMsg2, "Įveskite el. pašto adresą.");
+    }
+    @Test
+    public void bothPswrdsSpeclSigns() { // 13th test Both Passwords are consist dots, spaces, dashes, underscores
+        int rnd = (int) Math.round(Math.random() * 1000000);
+        int rndEmail = (int) Math.round(Math.random() * 1000000);
+        String randomEmail = rndEmail + "@gmail.com";
+
+        WebElement searchUserName = driver.findElement(By.id("UserName"));
+        searchUserName.sendKeys("MyName" + rnd);
+        WebElement searchEmail = driver.findElement(By.id("Email"));
+        searchEmail.sendKeys(randomEmail);
+        WebElement password = driver.findElement(By.id("Password"));
+        password.sendKeys("-- -....___ __.__.");
+        WebElement passwordRepeat = driver.findElement(By.id("Password2"));
+        passwordRepeat.sendKeys("-- -....___ __.__.");
+        WebElement registration = driver.findElement(By.xpath("//*[@id=\"main-container\"]/form/fieldset/table/tbody/tr[11]/td[2]/input"));
+        registration.click();
+        WebElement successMsgElement = driver.findElement(By.xpath("//*[@id=\"main-container\"]/div[2]/h1/b"));
+        String successMsg = successMsgElement.getText();
+        Assert.assertNotEquals(successMsg, "Jūs sėkmingai prisiregistravote!");
     }
 
 
