@@ -42,7 +42,7 @@ public class ELenta2 {
         driver.findElement(By.xpath("/html/body/div[5]/div[2]/div[1]/div[2]/div[2]/button[1]/p")).click();
     }
     @Test
-    public void addNewAdTest () { // postive
+    public void addNewAdTest () { // positive
         int rnd = (int) Math.round(Math.random() * 1000000);
         int rndEmail = (int) Math.round(Math.random() * 1000000);
         String randomEmail = rndEmail + "@gmail.com";
@@ -66,8 +66,10 @@ public class ELenta2 {
         WebElement submitBtn = driver.findElement(By.id("submit-button"));
         submitBtn.click();
 
-        WebElement upload_file = driver.findElement(By.id("inputfile"));
-        upload_file.sendKeys ("/home/astex/Pictures/coins.png");
+
+        String filePath = System.getProperty("user.dir") + "/TestPictures/coins.png";
+        WebElement upload_file = driver.findElement(By.id("inputfile")); // uploads file from project
+        upload_file.sendKeys(filePath);
 
         driver.findElement(By.id("forward-button")).click();
         driver.findElement(By.id("forward-button")).click();
@@ -77,7 +79,6 @@ public class ELenta2 {
         String successMsg = successMsgElement.getText();
         Assert.assertEquals(successMsg, "SKELBIMAS AKTYVUS");
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
 }
