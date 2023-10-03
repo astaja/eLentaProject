@@ -283,11 +283,5 @@ public class FirstTests {
         Assert.assertNotEquals(successMsg, "Jūs sėkmingai prisiregistravote!");
     }
 
-
-
-
-
-
-
 }
 

@@ -17,10 +17,13 @@ public class ELenta2 {
 
     @BeforeMethod
     public void beforeMethod() {
-        WebElement startAdd = driver.findElement(By.id("submit-new-ad-nav-button"));
-        startAdd.click();
-        driver.findElement(By.xpath("//*[@id=\"select-top-category-list\"]/li[4]/a")).click();
-        driver.findElement(By.xpath("//*[@id=\"select-sub-category-list\"]/li[16]/a")).click();
+        driver.get("https://elenta.lt/patalpinti/ivesti-informacija?categoryId=BuitisLaisvalaikis_Kolekcionavimas&actionId=Iesko&returnurl=%2F");
+        driver.findElement(By.id("title")).clear();
+        driver.findElement(By.id("text")).clear();
+        driver.findElement(By.id("price")).clear();
+        driver.findElement(By.id("location-search-box")).clear();
+        driver.findElement(By.id("phone")).clear();
+        driver.findElement(By.id("email")).clear();
     }
 
     @AfterMethod
@@ -75,29 +78,28 @@ public class ELenta2 {
     @Test
     public void noTitleTest() { // Nr 2 negative Test. No title entered into the title field
         int rnd = (int) Math.round(Math.random() * 10000);
-        fillNegativeTest("", rnd + "Description", rnd + "0", "Kaunas", "+37061111111", rnd + "@gmail.com");
-        String successMsg = driver.findElement(By.id("te")).getText();
-        Assert.assertEquals(successMsg, "Įveskite skelbimo pavadinimą");
+        fillForm("", rnd + "Description", rnd + "0", "Kaunas", "+37061111111", rnd + "@gmail.com");
+        String errorMsg = driver.findElement(By.id("te")).getText();
+        Assert.assertEquals(errorMsg, "Įveskite skelbimo pavadinimą");
     }
 
     @Test
     public void noDescrTest() { // Nr 3 negative Test. No description entered into the description field
         int rnd = (int) Math.round(Math.random() * 10000);
-        fillNegativeTest("Monetos" + rnd, " ", rnd + "0", "Kaunas", "+37061111111", rnd + "@gmail.com");
-        String successMsg = driver.findElement(By.id("txte")).getText();
-        Assert.assertEquals(successMsg, "Įveskite skelbimo aprašymą");
+        fillForm("Monetos" + rnd, " ", rnd + "0", "Kaunas", "+37061111111", rnd + "@gmail.com");
+        String errorMsg = driver.findElement(By.id("txte")).getText();
+        Assert.assertEquals(errorMsg, "Įveskite skelbimo aprašymą");
     }
 
     @Test
     public void noPhoneTest() { // Nr 4 negative Test. No phone nr entered into the phone field
         int rnd = (int) Math.round(Math.random() * 10000);
-        fillNegativeTest("Monetos" + rnd,  rnd + "Description", rnd + "0", "Kaunas","", rnd + "@gmail.com");
-        String successMsg = driver.findElement(By.id("ce")).getText();
-        Assert.assertEquals(successMsg, "Įveskite telefono numerį");
+        fillForm("Monetos" + rnd,  rnd + "Description", rnd + "0", "Kaunas","", rnd + "@gmail.com");
+        String errorMsg = driver.findElement(By.id("ce")).getText();
+        Assert.assertEquals(errorMsg, "Įveskite telefono numerį");
     }
 
-    public void fillNegativeTest(String title, String text, String price, String town, String phone, String email) {
-        int rnd = (int) Math.round(Math.random() * 10000);
+    public void fillForm(String title, String text, String price, String town, String phone, String email) { // not a test
         driver.findElement(By.id("title")).sendKeys(title);
         driver.findElement(By.id("text")).sendKeys(text);
         driver.findElement(By.id("price")).sendKeys(price);
